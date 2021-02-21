@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import selectByNoteName from '../selector/selectByNoteName';
 import selectAll from '../selector/selectAll';
 import { Link } from 'react-router-dom';
+import Header from '../components/Header'
 
 const NotePage = (props) => {
     const noteName = selectByNoteName(props.notes, props.match.params.id);
@@ -10,9 +11,12 @@ const NotePage = (props) => {
 
     return (
     <div>
-    <Link to="/dashboard">Dashboard</Link>
+    <Header />
+    <div className="content-container">
+    <Link to="/dashboard">Go To Dashboard</Link>
         <h1>{noteName.map((anything) => anything.noteName)}</h1>
         <p>{noteName.map((anything) => anything.noteContent)}</p>
+    </div>
     </div>
     )
 }
