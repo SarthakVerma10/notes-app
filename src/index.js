@@ -12,7 +12,8 @@ import { addToStore } from './actions/addNote';
 import firebase from 'firebase';
 import auth from './reducers/auth';
 import { login } from './actions/auth';
-import './styles/styles.scss'
+import './styles/styles.scss';
+import Home from './components/Home';
 
 
 const reducers = combineReducers({note, auth})
@@ -24,23 +25,26 @@ const store = createStore(reducers, applyMiddleware(thunk));
 // const unsubscribe = store.subscribe(handleChange);
 
 const initialPost = []
-
+ReactDOM.render(<Home />, document.getElementById('root'))
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
+        ReactDOM.render(<p>Loading</p>, document.getElementById('root'))
         store.dispatch(login(user.uid))
         const uid = user.uid;
         database.ref(`users/${uid}/notes`).once('value', (snapshot) => {
           snapshot.forEach((childSnapshot) => {
+            
               // console.log("Key: ", childSnapshot.key);
               // console.log("Data: ", childSnapshot.val());
               initialPost.push({id: childSnapshot.key, ...childSnapshot.val()});    
           });
           initialPost.map((every) => store.dispatch(addToStore(every.id, every.noteName, every.noteContent)));
-      
+          
         })
         console.log(store.getState());
         const displayName = user.displayName;
         console.log('user is logged in with id: ', displayName);
+        ReactDOM.render(<Provider store={store}><BrowserRouter><App /></BrowserRouter></Provider>,document.getElementById('root'))
     } else {
       console.log('Logged out');
     }
@@ -52,4 +56,4 @@ firebase.auth().onAuthStateChanged((user) => {
 // setTimeout(() => {console.log("World!"); }, 10000);
 
 
-  ReactDOM.render(<Provider store={store}><BrowserRouter><App /></BrowserRouter></Provider>,document.getElementById('root'))
+
