@@ -1,20 +1,20 @@
 import './App.css';
-import { Router, Switch, Link, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import Home from './components/Home.js';
 import Dashboard from './components/Dashboard.js';
+import CreatePage from './components/CreatePage';
+import  NotePage  from './components/NotePage';
+import 'firebase/auth';
+import PrivateRoute from './components/PrivateRoute';
 
 function App() {
   return (
-    <div className="App">
-      <h1>Testing npm create-react-app</h1>
-      <Route>
-        <Link to="/">HOME</Link>
-        <Link to="/dashboard">DASHBOARD</Link>
-      </Route>
-
+    <div>
       <Switch>
         <Route exact path="/"><Home /></Route>
-        <Route path="/dashboard"><Dashboard /></Route>
+        <PrivateRoute path="/create" component={CreatePage} />
+        <PrivateRoute path="/note/:id" component={ NotePage } />
+        <PrivateRoute path="/dashboard" component={Dashboard} />
       </Switch>
     </div>
   );
