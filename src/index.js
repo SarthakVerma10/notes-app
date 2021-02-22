@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM, { render } from 'react-dom';
 import './index.css';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
@@ -34,18 +34,20 @@ const fetchData = (uid) => {
         initialPost.push({id: childSnapshot.key, ...childSnapshot.val()});    
     });
     initialPost.map((every) => store.dispatch(addToStore(every.id, every.noteName, every.noteContent)));
+    renderApp();
   })
-  return new Promise((resolve) => resolve('Got the data'));
+
 }
 
-ReactDOM.render(<p>Loading</p>, document.getElementById('root'));
+
 
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
+        ReactDOM.render(<p>Loading...</p>, document.getElementById('root'));
         console.log('Logged in as ', user.displayName);
         store.dispatch(login(user.uid))
         const uid = user.uid;
-        fetchData(uid).then(() => {renderApp();});
+        fetchData(uid);
     } else {
       renderApp();
       console.log('Logged out');

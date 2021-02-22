@@ -21,6 +21,8 @@ class CreatePage extends React.Component {
         e.preventDefault()
         const name=e.target.elements.name.value.trim();
         const content = e.target.elements.content.value.trim()
+        e.target.elements.name.value = '';
+        e.target.elements.content.value = '';
         console.log("Entered value: ", name);
         console.log("Entered content: ", content);
         this.props.dispatch(addNote(name, content));

@@ -20,8 +20,11 @@ const Dashboard = (props) => {
     <div className="content-container">
       <h1>Dashboard</h1>
       <CreatePage />
-      <p className="list-header">Your Notes</p>
+      <h1 className="list-header">Your Notes</h1>
+      <div  className="list-item">
       {props.first.map((loop_note) =><NoteItem key={loop_note.id} noteName={loop_note.noteName} id={loop_note.id}/>)}
+      </div>
+      
     </div>
 
   </div>
