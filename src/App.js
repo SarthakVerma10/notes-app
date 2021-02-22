@@ -6,12 +6,13 @@ import CreatePage from './components/CreatePage';
 import  NotePage  from './components/NotePage';
 import 'firebase/auth';
 import PrivateRoute from './components/PrivateRoute';
+import PublicRoute from './components/PublicRoute';
 
 function App() {
   return (
     <div>
       <Switch>
-        <Route exact path="/"><Home /></Route>
+        <PublicRoute exact path="/" component={Home}></PublicRoute>
         <PrivateRoute path="/create" component={CreatePage} />
         <PrivateRoute path="/note/:id" component={ NotePage } />
         <PrivateRoute path="/dashboard" component={Dashboard} />

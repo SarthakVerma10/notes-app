@@ -13,47 +13,46 @@ import firebase from 'firebase';
 import auth from './reducers/auth';
 import { login } from './actions/auth';
 import './styles/styles.scss';
-import Home from './components/Home';
-
 
 const reducers = combineReducers({note, auth})
-
 const store = createStore(reducers, applyMiddleware(thunk));
 
-// const handleChange = () => console.log(store.getState());
+let hasRendered = false;
 
-// const unsubscribe = store.subscribe(handleChange);
+const renderApp = () => {
+  if (!hasRendered) {
+    ReactDOM.render(<Provider store={store}><BrowserRouter><App /></BrowserRouter></Provider>,document.getElementById('root'));
+    hasRendered = true;
+  }
+};
 
 const initialPost = []
-ReactDOM.render(<Home />, document.getElementById('root'))
+
+const fetchData = (uid) => {
+    database.ref(`users/${uid}/notes`).once('value', (snapshot) => {
+    snapshot.forEach((childSnapshot) => {
+        initialPost.push({id: childSnapshot.key, ...childSnapshot.val()});    
+    });
+    initialPost.map((every) => store.dispatch(addToStore(every.id, every.noteName, every.noteContent)));
+  })
+  return new Promise((resolve) => resolve('Got the data'));
+}
+
+ReactDOM.render(<p>Loading</p>, document.getElementById('root'));
+
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-        ReactDOM.render(<p>Loading</p>, document.getElementById('root'))
+        console.log('Logged in as ', user.displayName);
         store.dispatch(login(user.uid))
         const uid = user.uid;
-        database.ref(`users/${uid}/notes`).once('value', (snapshot) => {
-          snapshot.forEach((childSnapshot) => {
-            
-              // console.log("Key: ", childSnapshot.key);
-              // console.log("Data: ", childSnapshot.val());
-              initialPost.push({id: childSnapshot.key, ...childSnapshot.val()});    
-          });
-          initialPost.map((every) => store.dispatch(addToStore(every.id, every.noteName, every.noteContent)));
-          
-        })
-        console.log(store.getState());
-        const displayName = user.displayName;
-        console.log('user is logged in with id: ', displayName);
-        ReactDOM.render(<Provider store={store}><BrowserRouter><App /></BrowserRouter></Provider>,document.getElementById('root'))
+        fetchData(uid).then(() => {renderApp();});
     } else {
+      renderApp();
       console.log('Logged out');
     }
       
 }) 
 
-// ReactDOM.render(<p>Loading</p>, document.getElementById('root'));
-
-// setTimeout(() => {console.log("World!"); }, 10000);
 
 
 
