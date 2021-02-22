@@ -18,10 +18,12 @@
 }
 
 .each__item {
-
+    background: black;
+    background-color: black;;
     &:hover {
         background: $dark-grey;
     }
+    color: white;
     padding: 5px;
     text-decoration: none;
     transition: background .3s ease;

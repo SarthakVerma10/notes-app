@@ -22,7 +22,10 @@ const Dashboard = (props) => {
       <CreatePage />
       <h1 className="list-header">Your Notes</h1>
       <div  className="list-item">
-      {props.first.map((loop_note) =><NoteItem key={loop_note.id} noteName={loop_note.noteName} id={loop_note.id}/>)}
+      {props.first.map((loop_note) =><NoteItem key={loop_note.id} 
+      noteName={loop_note.noteName} 
+      noteContent={loop_note.noteContent} 
+      id={loop_note.id}/>)}
       </div>
       
     </div>

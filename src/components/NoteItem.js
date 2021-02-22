@@ -1,13 +1,29 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import NoteDialog from './NoteDialog';
+import Dialog from 'react-dialog';
 
-const NoteItem = (props) => {
-    const goto = "/note/" + props.noteName;
+class NoteItem extends React.Component {
+    constructor(props) {
+        super(props);
+        this.noteName = props.noteName;
+        this.noteContent = props.noteContent;
+    }
+
+    openDialog = () => {
+        const x = document.getElementById(this.noteName);
+        
+        x.show();   
+    }
+
+    render() {
     return (
         <div className="temp_item">
-        <Link className="each__item" to={goto}>{props.noteName}</Link>
+        <button onClick={this.openDialog} className="button button--link">{this.noteName}</button>
+        <NoteDialog noteContent={this.noteContent} noteName={this.noteName}></NoteDialog>
         </div>
     )
+    }
 }
 
 export default NoteItem;
