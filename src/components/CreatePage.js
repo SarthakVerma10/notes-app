@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import addNote from '../actions/addNote';
-import { addToStore } from '../actions/addNote';
-import { Route, Redirect, Link } from 'react-router-dom';
+import selectByNoteName from '../selector/selectByNoteName';
+import selectAll from '../selector/selectAll';
 
 class CreatePage extends React.Component {
     constructor(props) {
@@ -21,20 +21,31 @@ class CreatePage extends React.Component {
         e.preventDefault()
         const name=e.target.elements.name.value.trim();
         const content = e.target.elements.content.value.trim()
-        e.target.elements.name.value = '';
-        e.target.elements.content.value = '';
-        console.log("Entered value: ", name);
-        console.log("Entered content: ", content);
-        this.props.dispatch(addNote(name, content));
-        this.addedDetails = true;
-        //window.location = "/dashboard";
-        //document.location.href = "/dashboard";
+        const note = selectByNoteName(this.props.first, name)
+
+        if (name.length === 0) {
+            alert('Cannot add note without a name')
+        } else if (note.length === 0) {
+            e.target.elements.name.value = '';
+            e.target.elements.content.value = '';
+            this.props.dispatch(addNote(name, content));
+            this.addedDetails = true;
+        } else if (note.length > 0) {
+           if (note[0].noteName) {
+            alert('Note with this name already exists')
+        } else {
+            e.target.elements.name.value = '';
+            e.target.elements.content.value = '';
+            this.props.dispatch(addNote(name, content));
+            this.addedDetails = true;
+        }
+    }
     }
 
     render () {
         return (
         <div className="content-container">
-        <form className="form" onSubmit={this.handleName} autoComplete="off">
+        <form className="form" onSubmit={this.handleName} autoComplete="nope">
             <input 
             className="name-input" 
             type="text" 
@@ -50,6 +61,11 @@ class CreatePage extends React.Component {
     }
 }
 
+const mapStateToProps = (state) => {
+    const first = selectAll(state);
+  return {
+    first: first[0]
+  }
+}
 
-
-export default connect()(CreatePage)
+export default connect(mapStateToProps)(CreatePage)

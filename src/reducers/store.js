@@ -10,6 +10,19 @@ const note = (state = initialState, action) => {
     return [...state, action.note]
   }
 
+  if (action.type === 'EDIT_NOTE') {
+    return state.map((note) => {
+      if (note.id === action.id) {
+        return {
+          ...note,
+          ...action.updates
+        };
+      } else {
+        return note;
+      }
+    })
+  }
+
   else {
     return state
   }

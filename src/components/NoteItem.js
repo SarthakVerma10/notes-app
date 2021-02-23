@@ -8,19 +8,24 @@ class NoteItem extends React.Component {
         super(props);
         this.noteName = props.noteName;
         this.noteContent = props.noteContent;
+        this.id = props.id;
     }
 
     openDialog = () => {
-        const x = document.getElementById(this.noteName);
-        
+        const x = document.getElementById(this.props.id);
+        document.getElementById("test-blur").style.filter = "opacity(50%)";
         x.show();   
+        // x.style.filter = "opacity(100%)";
+        x.style.display = 'flex';
+        x.style.flexDirection = 'column';
+
     }
 
     render() {
     return (
         <div className="temp_item">
         <button onClick={this.openDialog} className="button button--link">{this.noteName}</button>
-        <NoteDialog noteContent={this.noteContent} noteName={this.noteName}></NoteDialog>
+        <NoteDialog id={this.id} noteContent={this.noteContent} noteName={this.noteName}></NoteDialog>
         </div>
     )
     }

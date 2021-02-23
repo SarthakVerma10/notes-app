@@ -1,7 +1,33 @@
 .dialog {
     color: white;
-    background-color: $dark-blue;
-    top: 30%;
+    background-color: darken($dark-blue, 10%);
+    top:30%;
+    position: absolute;
     border: 2px solid;
     border-radius: 5px;
+    padding:10px 40px;
+    text-align: left;
+
+}
+
+.dialog-form {
+    display: flex;
+    flex-direction: column;
+    > * {
+        margin-bottom: $m-size;
+    }
+}
+
+.Name {
+    font-size: x-large;
+    padding: 5px;
+    border-radius: 3px;
+}
+
+.area {
+    width: 80rem;
+    height: 20rem;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: medium;
+    border-radius: 3px;
 }

@@ -17,6 +17,10 @@ import './styles/styles.scss';
 const reducers = combineReducers({note, auth})
 const store = createStore(reducers, applyMiddleware(thunk));
 
+// const handleChange = () => console.log(store.getState());
+
+// const unsubscribe = store.subscribe(handleChange);
+
 let hasRendered = false;
 
 const renderApp = () => {
@@ -38,8 +42,6 @@ const fetchData = (uid) => {
   })
 
 }
-
-
 
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
