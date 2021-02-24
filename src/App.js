@@ -1,5 +1,5 @@
 import './App.css';
-import { Switch, Route } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 import Home from './components/Home.js';
 import Dashboard from './components/Dashboard.js';
 import CreatePage from './components/CreatePage';

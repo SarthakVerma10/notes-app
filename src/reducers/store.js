@@ -6,8 +6,12 @@ const note = (state = initialState, action) => {
     return  [...state, action.note];
   }
 
-  else if (action.type === 'READ_NOTE') {
-    return [...state, action.note]
+  if (action.type === 'READ_NOTE') {
+    return  [...state, action.note];
+  }
+
+  if (action.type === 'REMOVE_NOTE') {
+    return state.filter(({ id }) => id !== action.id);
   }
 
   if (action.type === 'EDIT_NOTE') {
@@ -22,11 +26,9 @@ const note = (state = initialState, action) => {
       }
     })
   }
-
   else {
     return state
   }
 }
-
 
 export { note };

@@ -21,7 +21,7 @@ const addNote = (noteName, noteContent) => {
        return data
     }
 
-    // note.note.id = addToFirebase().key ;
+    note.note.id = addToFirebase().key ;
     // const t = addToFirebase().ref;
 
       return (dispatch, getState) => {
@@ -34,23 +34,6 @@ const addNote = (noteName, noteContent) => {
       }
 };
 
-const readNotes = () => {
-  return (dispatch) => {
-    const initialPost = []
-
-    database.ref('note').once('value', (snapshot) => {
-        snapshot.forEach((childSnapshot) => {
-            // console.log("Key: ", childSnapshot.key);
-            // console.log("Data: ", childSnapshot.val());
-            initialPost.push({id: childSnapshot.key, ...childSnapshot.val()});    
-    
-            
-        });
-        initialPost.map((every) => dispatch(addToStore(every.id, every.noteName, every.noteContent)));
-    
-      }) 
-  }
-};
 
 
 const addToStore = (id, noteName, noteContent) => ({
@@ -63,6 +46,6 @@ const addToStore = (id, noteName, noteContent) => ({
 })
 
 
-export { readNotes, addToStore }
+export { addToStore }
 
 export default addNote;

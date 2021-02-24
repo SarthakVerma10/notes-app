@@ -10,12 +10,12 @@ var firebaseConfig = {
     authDomain: "playground-23663.firebaseapp.com",
 }
 
-const uiConfig = {
-    signInSuccessUrl: '/dashboard',
-    signInOptions: [
-        firebase.auth.GoogleAuthProvider.PROVIDER_ID
-    ]
-}
+// const uiConfig = {
+//     signInSuccessUrl: '/dashboard',
+//     signInOptions: [
+//         firebase.auth.GoogleAuthProvider.PROVIDER_ID
+//     ]
+// }
 
 const firebaseInit = firebase.initializeApp(firebaseConfig)
 const database = firebase.database();

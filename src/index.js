@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM, { render } from 'react-dom';
 import './index.css';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
@@ -18,7 +17,6 @@ const reducers = combineReducers({note, auth})
 const store = createStore(reducers, applyMiddleware(thunk));
 
 // const handleChange = () => console.log(store.getState());
-
 // const unsubscribe = store.subscribe(handleChange);
 
 let hasRendered = false;

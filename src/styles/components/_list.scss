@@ -13,21 +13,24 @@
     flex-direction:row;
     margin-bottom: 5rem;
     flex-wrap: wrap;
-    justify-content:flex-start;
     width: 80rem;
 }
 
 .each__item {
+    font-size: medium;
     background: black;
-    background-color: black;;
+    background-color: black;
     &:hover {
-        background: $dark-grey;
+        background: $dark-blue;
+        border: white;
     }
     color: white;
-    padding: 5px;
+    padding: 25px;
     text-decoration: none;
     transition: background .3s ease;
-    margin: 30px;
+    border: none;
+    width: 150px;
+    height: 100px;
 }
 
 .temp_item {

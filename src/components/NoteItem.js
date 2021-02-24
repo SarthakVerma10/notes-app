@@ -1,7 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import NoteDialog from './NoteDialog';
-import Dialog from 'react-dialog';
 
 class NoteItem extends React.Component {
     constructor(props) {
@@ -13,9 +11,10 @@ class NoteItem extends React.Component {
 
     openDialog = () => {
         const x = document.getElementById(this.props.id);
+        console.log('id: ', this.props.id);
         document.getElementById("test-blur").style.filter = "opacity(50%)";
         x.show();   
-        // x.style.filter = "opacity(100%)";
+        x.style.filter = "opacity(100%)";
         x.style.display = 'flex';
         x.style.flexDirection = 'column';
 
@@ -24,7 +23,7 @@ class NoteItem extends React.Component {
     render() {
     return (
         <div className="temp_item">
-        <button onClick={this.openDialog} className="button button--link">{this.noteName}</button>
+        <button onClick={this.openDialog} className="each__item">{this.noteName}</button>
         <NoteDialog id={this.id} noteContent={this.noteContent} noteName={this.noteName}></NoteDialog>
         </div>
     )
